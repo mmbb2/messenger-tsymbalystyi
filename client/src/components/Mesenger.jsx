@@ -18,7 +18,7 @@ const Mesenger = ()=> {
     }
 
     function onSearch(){
-        console.log(searchValue)
+        console.log(searchValue, " form")
         dispatch(getAllByName(searchValue));
     }
 

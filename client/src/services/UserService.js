@@ -3,7 +3,8 @@ import $api from "../http";
 
 export default class UserService {
     static async search(name){
-        return $api.get('/findUsers', {name})
+        console.log(name, "userservice");
+        return  $api.get('/findUsers', {name})
     }
 }
 
