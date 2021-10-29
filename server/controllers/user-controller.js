@@ -56,12 +56,14 @@ class UserController{
             console.log(e);
         }
     }
-    async getUsers(req, res, next){
+    async findUsers(req, res, next){
         try{
-            res.json(['123', '456']);
+           const {name} = req.body;
+           const findedUsers = await userService.findByName(name);
+           return res.json(findedUsers)
         }
         catch(e){
-            
+            console.log(e)
         }
     }
 }

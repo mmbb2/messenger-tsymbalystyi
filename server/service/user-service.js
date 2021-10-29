@@ -83,6 +83,11 @@ class UserService{
              user: userDto
          }
     }
+
+    async findByName(name){
+        const findedUsers = await UserModel.find({name});
+        return findedUsers;
+    }
 }
 
 module.exports = new UserService();

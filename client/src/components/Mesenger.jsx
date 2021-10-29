@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import { logout} from "../store/actions/AuthActions";
+import { getAllByName } from '../store/actions/UserActions';
 import { useHistory  } from 'react-router-dom';
 
 
@@ -10,7 +11,6 @@ const Mesenger = ()=> {
     const history = useHistory();
     const user = useSelector(state=> state.user)
     const [searchValue, setSearchValue] = useState('')
-    const [searchedUsers, setSearchedUsers] = useState([])
 
     function onLogout(){
         dispatch(logout());
@@ -18,7 +18,8 @@ const Mesenger = ()=> {
     }
 
     function onSearch(){
-        dispatch(logout());
+        console.log(searchValue)
+        dispatch(getAllByName(searchValue));
     }
 
     return (
@@ -33,7 +34,7 @@ const Mesenger = ()=> {
                 placeholder = "search"
             />
 
-            <button onClick={onLogout} >Search</button>
+            <button onClick={onSearch} >Search</button>
 
         </div>
     );
