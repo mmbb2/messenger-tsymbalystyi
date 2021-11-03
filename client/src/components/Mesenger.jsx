@@ -3,6 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 import { logout} from "../store/actions/AuthActions";
 import { getAllByName } from '../store/actions/UserActions';
 import { useHistory  } from 'react-router-dom';
+import axios from 'axios';
+import { API_URL } from '../http';
 
 
 const Mesenger = ()=> {
@@ -12,14 +14,18 @@ const Mesenger = ()=> {
     const user = useSelector(state=> state.user)
     const [searchValue, setSearchValue] = useState('')
 
+
+
     function onLogout(){
         dispatch(logout());
         history.push("/login");
     }
 
-    function onSearch(){
+     function onSearch(){
         console.log(searchValue, " form")
-        dispatch(getAllByName(searchValue));
+       dispatch(getAllByName(searchValue));
+
+
     }
 
     return (

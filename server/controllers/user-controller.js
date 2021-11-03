@@ -59,7 +59,7 @@ class UserController{
     }
     async findUsers(req, res, next){
         try{
-           const {name} = req.body;
+           const {name} = req.params;
            console.log(name, "sevrer");
            const findedUsers = await userService.findByName(name);
            return res.json(findedUsers)

@@ -1,6 +1,5 @@
 import UserService from "../../services/UserService";
 import {setSearchedUsers} from "../AuthReducer";
-import {API_URL} from "../../http/index.js";
 
 
 
