@@ -1,0 +1,13 @@
+.container{
+    /* height: clac(100vh - 16px); */
+}
+
+.conversation{
+    height: 799px;
+    width: '100%';
+    overflow-y: scroll;
+}
+
+.message-input{
+    display: flex;
+}

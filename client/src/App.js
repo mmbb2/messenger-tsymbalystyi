@@ -2,9 +2,11 @@ import LoginForm from "./components/LoginForm";
 import Mesenger from "./components/Mesenger";
 import Registration from "./components/RegistrationForm"
 import {useDispatch, useSelector} from "react-redux";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 import React, { useEffect } from 'react';
 import { checkAuth } from "./store/actions/AuthActions";
+import ProtectedRoute from "./components/hocs/ProtectedRoute";
+
 
 function App() {
   const dispatch = useDispatch()
@@ -16,12 +18,13 @@ function App() {
   }, [])
 
   return (
+    
     <BrowserRouter>
-      <div>
+      <Switch>
+        <ProtectedRoute exact path="/" component={Mesenger}/>
         <Route path="/login" component={LoginForm}/>
         <Route path="/registration" component={Registration}/>
-        <Route exact path="/" component={Mesenger}/>
-      </div>
+      </Switch>
     </BrowserRouter>
   );
 }

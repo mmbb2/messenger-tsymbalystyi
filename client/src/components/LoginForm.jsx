@@ -1,24 +1,26 @@
 import React, { useState } from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {login} from "../store/actions/AuthActions";
-import { useHistory  } from 'react-router-dom';
+import { useHistory, Redirect   } from 'react-router-dom';
 
 const LoginForm = ()=>{
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const dispatch = useDispatch();
-
-    const user = useSelector(state=> state.user)
     const history = useHistory();
 
+    const isAuth = useSelector(state => state.isAuth)
     function onLogin(){
         dispatch(login(email, password));
-        history.push("/");
+    }
+
+    if(isAuth){
+        return (
+            <Redirect to="/" />
+        )
     }
    
-
 
     return (
         <div>
