@@ -11,7 +11,11 @@ class ConversationService{
             console.log("candidate ", candidate);
            if (!candidate.length){
             const conversation = await ConversationModel.create({members, isGroup});
-            return conversation
+            const populateConv = await ConversationModel.findById(conversation._id).populate({
+                path: 'members',
+                model: 'User'
+            })
+            return populateConv
             
            }
            return null
@@ -23,8 +27,11 @@ class ConversationService{
         
     }
 
-    async findAllcreateConversationOfUser(userId){
-        const conversations = await ConversationModel.find({members: {"$in" : [userId]} })
+    async findAllConversationOfUser(userId){
+        const conversations = await ConversationModel.find({members: {"$in" : [userId]} }).populate({
+            path: 'members',
+            model: 'User'
+        })
         return{
             conversations
         }

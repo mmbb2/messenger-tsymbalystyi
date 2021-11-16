@@ -15,7 +15,7 @@ const ConversationList = ()=> {
         <List>
             {conversations?.map(conversation=>{
                 return( 
-                <ListItem>
+                <ListItem key={conversation._id} >
                     <ListItemButton sx={{ p: 0 }} >
                         <ListItemAvatar>
                         </ListItemAvatar>

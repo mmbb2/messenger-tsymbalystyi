@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { createConversation, getConversations } from '../../../store/actions/UserActions';
 import { socket } from '../../Conversation/Conversation';
 import { setCurrentConversation } from '../../../store/AuthReducer';
-
+import { Typography } from '@mui/material';
 const SearchedUser = (props)=> {
 
     const dispatch = useDispatch();
@@ -12,17 +12,14 @@ const SearchedUser = (props)=> {
     
 
     function onCreateConversation(){
-      dispatch(setCurrentConversation({members:[user.id, props._id], _id: null }))
+      dispatch(setCurrentConversation({members:[user, props], _id: null }))
     }
 
     return (
-       <div>
            <div onClick={onCreateConversation}>
-           <p>{props.name}</p>
-           <p>{props.email}</p>
+           <Typography>{props.name}</Typography>
+           <Typography>{props.email}</Typography>
            </div>
-           <hr/>
-       </div>
     );
 }
 

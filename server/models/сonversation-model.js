@@ -1,7 +1,7 @@
 const {Schema, model} = require('mongoose');
 
 const ConversationSchema = new Schema({
-    members: {type: Array, required: true},
+    members: [{type: Schema.Types.ObjectId, ref: 'User', required: true}],
     admins: {type: Array},
     isGroup: {type: Boolean, required: true}
 });

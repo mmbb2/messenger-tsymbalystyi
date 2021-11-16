@@ -1,13 +1,43 @@
 .container{
-    /* height: clac(100vh - 16px); */
+    height:calc(100vh - 16px)
 }
 
 .conversation{
-    height: 799px;
-    width: '100%';
+    height:calc(100vh - 148px);
+    width: 100%;
     overflow-y: scroll;
 }
 
 .message-input{
     display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.UserSearchForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+
+.message-image{
+    height: 300px;
+}
+
+.left{
+    height:calc(100vh - 52px);
+    overflow-y: scroll;
+}
+
+.modalBox{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    border: 2px solid white;
+    background-color: lightblue;
+    boxShadow: 24;
+    p: 4;
 }

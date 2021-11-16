@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import Message from './Message/Message';
 import MessageForm from './MessageForm/MessageForm';
 import { io } from 'socket.io-client';
 import {setCurrentConversation, updateConversationMessages, updateConversations,} from '../../store/AuthReducer';
 import { getMessages } from '../../store/actions/UserActions';
-import { List,ListItem ,ListItemText ,ListItemAvatar , ListItemButton, Typography } from '@mui/material';
-
+import { List,ListItem , Typography } from '@mui/material';
+import ScrollToBottom from 'react-scroll-to-bottom';
 export let socket;
 
 const Conversation = ()=> {
@@ -51,37 +51,43 @@ const Conversation = ()=> {
 
     }, [])
 
-    useEffect(() => {
-        if(conversation._id){
-            console.log("Useeff")
-        }
-        
-    }, [conversation])
+    const messagesBottom = useRef(null);
 
-    
+    const scrollToBottom = (ref) => {
+      ref.current?.scrollIntoView();
+    };
+  
+    useEffect(() => {
+      scrollToBottom(messagesBottom);
+    }, [conversation]);
 
     return (
-        <>
+        <>{
+            Object.entries(conversation).length !== 0 ?
+            <>
         <Typography>
-            {conversation._id}
+            {conversation?.members?.find(member=> (member._id || member.id ) !== user.id).name}
         </Typography>
-        <List className="conversation">
+        
+            <List className="conversation">
                 {
                 conversation.messages?.map(message=> {
                     return(
-                        <ListItem>
-                            <ListItemButton >
-                                <ListItemAvatar>
-                                </ListItemAvatar>
-                                <ListItemText>
-                                        <Message {...message}/>
-                                </ListItemText>
-                            </ListItemButton>
+                        <ListItem key={message._id}>
+                            <Message {...message}/>
                         </ListItem>
                     )})
                 }
-       </List>  
+                <div ref={messagesBottom}></div>
+            </List>  
+            
+        
         <MessageForm />
+        </>
+        :   
+        <>
+        </>    
+        }
         </>
         
     );

@@ -6,9 +6,14 @@ import {setSearchedUsers, setConversations, setConversationMessages} from "../Au
 
 export const getAllByName = (name) => {
     return async (dispatch) => {
-
-        const response = await UserService.search(name);
-        dispatch(setSearchedUsers(response.data));
+        if(name){
+            const response = await UserService.search(name);
+            console.log("name", response.data)
+            dispatch(setSearchedUsers(response.data));
+        } else{
+            dispatch(setSearchedUsers([]));
+        }
+        
     }
 }
 

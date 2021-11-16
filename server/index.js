@@ -3,14 +3,14 @@ require('dotenv').config()
 const express = require('express');
 const { createServer } = require("http");
 const { Server } = require("socket.io");
-
+const fileUpload = require("express-fileupload")
 const cors = require('cors');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const router = require('./routers/index.js')
 const conversationRoute = require('./routers/conversations.js')
 const messageRoute = require('./routers/messages.js')
-
+const fileRoute = require('./routers/files')
 const MessageService = require('./service/message-service')
 const ConversationService = require('./service/conversation-servise')
 
@@ -30,13 +30,15 @@ const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(cookieParser());
-
+app.use(fileUpload({}))
 app.use(cors(corsOptions));
 
+
+app.use(express.static('static'))
 app.use('/api', router);
 app.use('/api/conversation', conversationRoute);
 app.use('/api/message', messageRoute);
-
+app.use('/api/files', fileRoute);
 
 io.on('connection', (socket) => { 
     
@@ -73,7 +75,8 @@ io.on('connection', (socket) => {
         await MessageService.addMessage(messageInConversation);
         console.log("newConv", newConversation)
         members.forEach(recipient => {
-            io.to(recipient).emit('newConversation', {conversation: newConversation, sender: id})
+            console.log(recipient.toString())
+            io.to(recipient.toString()).emit('newConversation', {conversation: newConversation, sender: id})
         });
     })
 

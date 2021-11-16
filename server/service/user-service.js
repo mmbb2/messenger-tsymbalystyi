@@ -85,8 +85,12 @@ class UserService{
     }
 
     async findByName(name){
-        const findedUsers = await UserModel.find({name});
-        return findedUsers;
+        console.log("findByName", name)
+        if(name){
+            const findedUsers = await UserModel.find({name});
+            return findedUsers;
+        }
+        return []
     }
 }
 

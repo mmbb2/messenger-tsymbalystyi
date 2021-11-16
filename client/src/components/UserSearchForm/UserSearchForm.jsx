@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import { getAllByName } from '../../store/actions/UserActions';
 import SearchedUser from './SearchedUser/SearchedUser';
-
+import { TextField, IconButton } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 const UserSearchForm = ()=> {
 
@@ -14,23 +15,24 @@ const UserSearchForm = ()=> {
         console.log(searchValue, " form")
        dispatch(getAllByName(searchValue));
 
-        console.log("from store", searchedUsers);
     }
 
     return (
         <>
-            <input 
-                onChange = {e=>{setSearchValue(e.target.value)}} 
-                value = {searchValue}
-                type="text"
-                placeholder = "search"
-            />
 
-            <button onClick={onSearch} >Search</button>
+            <div className="UserSearchForm">
+                <TextField variant="outlined" fullWidth
+                    onChange = {e=>{setSearchValue(e.target.value)}} 
+                    placeholder = "search"
+                />
 
-            {
-                searchedUsers.map(user=> <SearchedUser  {...user}/>)
-            }
+                <IconButton  onClick={onSearch}>
+                    <SearchIcon />
+                </IconButton>
+            </div>
+            
+
+           
         </>
     );
 }

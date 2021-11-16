@@ -15,7 +15,7 @@ class ConversationController{
 
     async findAllOfUser(req, res, next){
         const {userId} = req.params;
-        const conversations = await ConversationService.findAllcreateConversationOfUser(userId);
+        const conversations = await ConversationService.findAllConversationOfUser(userId);
 
         return res.json(conversations);
     }
